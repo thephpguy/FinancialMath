@@ -1,0 +1,25 @@
+{
+    "name": "thephpguy/amortization",
+    "description": "A simple amortization calculartor",
+    "type": "library",
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Timothy Martens",
+            "email": "tmartens@thephpguy.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "AmortizationCalculator": "src/",
+            "AmortizationCalculator\\FinancialMath\\": "src/FinancialMath"
+        }
+    }
+}

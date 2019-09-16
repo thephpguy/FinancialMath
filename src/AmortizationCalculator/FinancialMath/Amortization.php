@@ -1,0 +1,307 @@
+<?php
+namespace AmortizationCalculator\FinancialMath;
+
+abstract class Amortization
+{
+
+
+
+    private $principal;
+    private $rate; // Annual rate
+    private $months;
+
+    private $roundToTheBanksFavor;
+
+
+    /**
+     * @return float
+     * @throws \Exception
+     */
+    protected function amortizedPayment()
+    {
+        if(!$this->verifyRequiredData())
+        {
+            throw new \Exception('Required data is not set.');
+        }
+        
+        try {
+            $monthlyRate = $this->getMonthlyRate();
+        } catch (\Exception $exception)
+        {
+            return $exception->getMessage();
+        }
+
+        $r = 1+$monthlyRate;
+        $d = pow($r, $this->months);
+        $g = ($monthlyRate*$d) / ($d - 1);
+        return $g * $this->principal;
+    }
+
+
+    private function verifyRequiredData()
+    {
+        if(isset($this->months) && isset($this->principal) && isset($this->rate))
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     *
+     *
+     * @return array|string
+     * @throws \Exception
+     */
+    protected function amortizationTable()
+    {
+        if(!$this->verifyRequiredData())
+        {
+            throw new \Exception('Required data is not set.');
+        }
+
+        try {
+            $monthlyRate = $this->getMonthlyRate();
+        } catch (\Exception $exception)
+        {
+            return $exception->getMessage();
+        }
+
+        $balance = $this->principal;
+
+        if($this->roundToTheBanksFavor)
+        {
+            $amortizedPaymentAmount = $this->roundUp($this->amortizedPayment(), 2);
+        }else{
+            $amortizedPaymentAmount = round($this->amortizedPayment(), 2);
+        }
+
+        $amortizationTable = array();
+        $interestPaid = 0;
+        $paymentNumber = 0;
+        $adjustment = 0;
+        while($balance > 0)
+        {
+            $paymentNumber++;
+            $interest = round($monthlyRate*$balance, 2);
+            $principlePaidThisMonth = $amortizedPaymentAmount-$interest;
+
+            // Last payment will be adjusted up or down by the remaining balance.
+            // This happens because of rounding up or down to the nearest cent.
+            if($paymentNumber == $this->getMonths())
+            {
+                $adjustment = round($balance - $principlePaidThisMonth, 2); //If you wonder why this is rounded then see the float warning here: https://www.php.net/manual/en/language.types.float.php
+                $principlePaidThisMonth = $balance; // === $principlePaidThisMonth = $principlePaidThisMonth + $adjustment; // 13+(-1), or 13 + 1
+            }
+
+            $amortizationTable[] = array(
+                'paymentNumber' => $paymentNumber,
+                'principal' => $principlePaidThisMonth,
+                'interest' => $interest
+            );
+
+            $interestPaid += $interest;
+            $balance = round($balance - $principlePaidThisMonth, 2);
+        }
+
+        $amortizedData = array(
+            'amortizationTable'     => $amortizationTable,
+            'amortizedPayment'      => $amortizedPaymentAmount,
+            'totalPaymentAmount'    => $amortizedPaymentAmount * $this->months + $adjustment,
+            'totalInterestAmount'   => $interestPaid,
+            'lastMonthAdjustment'   => $adjustment,
+        );
+
+        return $amortizedData;
+    }
+
+
+    /**
+     * @param $principal
+     * @param $rate
+     * @param $months
+     * @throws \Exception
+     */
+    public function setLoanTerms($principal, $rate, $months)
+    {
+        try {
+            $this->setPrincipal($principal);
+        }catch (\Exception $exception)
+        {
+            throw $exception;
+        }
+
+        try {
+            $this->setRate($rate);
+        }catch (\Exception $exception)
+        {
+            throw $exception;
+        }
+
+        try{
+            $this->setMonths($months);
+        }catch (\Exception $exception)
+        {
+            throw $exception;
+        }
+    }
+
+
+    /**
+     * @return float|int
+     * @throws \Exception
+     */
+    public function getMonthlyRate()
+    {
+
+        if(isset($this->rate))
+        {
+            return $this->rate/12;
+        }
+
+        throw new \Exception('Rate is not set.');
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPrincipal()
+    {
+        return $this->principal;
+    }
+
+
+    /**
+     * @param $principal
+     * @return bool
+     * @throws \Exception
+     */
+    public function setPrincipal($principal)
+    {
+        if($principal > 0)
+        {
+            $this->principal = $principal;
+            return true;
+        }
+
+        throw new \Exception('Principal must be > 0');
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+
+    /**
+     * @param $rate
+     * @return bool
+     * @throws \Exception
+     */
+    public function setRate($rate)
+    {
+        if($rate > 0 && $rate < 1) {
+            $this->rate = $rate;
+            return true;
+        }
+        throw new \Exception('Rate must be > 0 and < 1.');
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getMonths()
+    {
+        return $this->months;
+    }
+
+
+    /**
+     * @param $months
+     * @return bool
+     * @throws \Exception
+     */
+    public function setMonths($months)
+    {
+        if($months > 0)
+        {
+            $this->months = $months;
+            return true;
+        }
+        throw new \Exception('Months must be > 0');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRoundToTheBanksFavor()
+    {
+        return $this->roundToTheBanksFavor;
+    }
+
+    /**
+     * @param bool $roundToTheBanksFavor
+     */
+    public function setRoundToTheBanksFavor($roundToTheBanksFavor)
+    {
+        if($roundToTheBanksFavor == true){
+            $this->roundToTheBanksFavor = true;
+        }else{
+            $this->roundToTheBanksFavor = false;
+        }
+    }
+
+
+
+    public function roundUp($number, $precision = 2)
+    {
+        $precision++;
+        $fig = (int) str_pad('1', $precision, '0');
+        if($number >= 1 || $number <= -1)
+        {
+            if($number < 0) // Rounding for negative numbers
+            {
+                return (ceil($number * $fig *-1) / $fig) * -1;
+            }
+            return (ceil($number * $fig) / $fig);
+
+        } else {
+
+            if($number < 0) // Rounding for negative numbers
+            {
+                return (ceil(round($number * $fig * -1, $precision+2)) / $fig) * -1;
+            }
+            return (ceil(round($number * $fig, $precision+2)) / $fig);
+        }
+    }
+
+    public function roundDown($number, $precision = 2)
+    {
+        $precision++;
+        $fig = (int) str_pad('1', $precision, '0');
+        if($number >= 1 || $number <= -1)
+        {
+            if($number < 0) // Rounding for negative numbers
+            {
+                return (floor($number * $fig *-1) / $fig) * -1;
+            }
+            return (floor($number * $fig) / $fig);
+
+        } else {
+
+            if($number < 0) // Rounding for negative numbers
+            {
+                return (floor(round($number * $fig * -1, $precision+2)) / $fig) * -1;
+            }
+            return (floor(round($number * $fig, $precision+2)) / $fig);
+        }
+    }
+
+}
