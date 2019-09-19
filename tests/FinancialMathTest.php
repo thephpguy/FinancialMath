@@ -10,46 +10,46 @@ final class FinancialMathAmortizationMathTest extends TestCase
         //Try a whole number.
         $amortizationCalculator = new AmortizationCalculator();
         try{
-           $amortizationCalculator->setRate(1);
+           $amortizationCalculator->setAnnualRate(1);
         }
         catch(\Exception $exception)
         {
             self::assertEquals('Rate must be > 0 and < 1.', $exception->getMessage());
         }
-        self::assertNull($amortizationCalculator->getRate());
+        self::assertNull($amortizationCalculator->getAnnualRate());
         unset($amortizationCalculator);
 
 
         //Try negative number
         $amortizationCalculator = new AmortizationCalculator();
         try{
-            $amortizationCalculator->setRate(-1);
+            $amortizationCalculator->setAnnualRate(-1);
         }
         catch(\Exception $exception)
         {
             self::assertEquals('Rate must be > 0 and < 1.', $exception->getMessage());
         }
-        self::assertNull($amortizationCalculator->getRate());
+        self::assertNull($amortizationCalculator->getAnnualRate());
         unset($amortizationCalculator);
 
 
         // Test rate = 0
         $amortizationCalculator = new AmortizationCalculator();
         try{
-            $amortizationCalculator->setRate(0);
+            $amortizationCalculator->setAnnualRate(0);
         }
         catch(\Exception $exception)
         {
             self::assertEquals('Rate must be > 0 and < 1.', $exception->getMessage());
         }
-        self::assertNull($amortizationCalculator->getRate());
+        self::assertNull($amortizationCalculator->getAnnualRate());
         unset($amortizationCalculator);
 
 
         //Test rate = 0.00
         $amortizationCalculator = new AmortizationCalculator();
         try{
-            $amortizationCalculator->setRate(0.00);
+            $amortizationCalculator->setAnnualRate(0.00);
         }
         catch(\Exception $exception)
         {
@@ -61,39 +61,39 @@ final class FinancialMathAmortizationMathTest extends TestCase
         //Test rate = 0.00
         $amortizationCalculator = new AmortizationCalculator();
         try{
-            $amortizationCalculator->setRate('a');
+            $amortizationCalculator->setAnnualRate('a');
         }
         catch(\Exception $exception)
         {
             self::assertEquals('Rate must be > 0 and < 1.', $exception->getMessage());
         }
-        self::assertNull($amortizationCalculator->getRate());
+        self::assertNull($amortizationCalculator->getAnnualRate());
         unset($amortizationCalculator);
 
 
         //Test rate = .01
         $amortizationCalculator = new AmortizationCalculator();
         try{
-            $amortizationCalculator->setRate(.01);
+            $amortizationCalculator->setAnnualRate(.01);
         }
         catch(\Exception $exception)
         {
             self::assertNull($exception->getMessage()); //Unless we hit an error this code won't actually run.
         }
-        self::assertEquals( .01, $amortizationCalculator->getRate());
+        self::assertEquals( .01, $amortizationCalculator->getAnnualRate());
         unset($amortizationCalculator);
 
 
         //Test rate = .01
         $amortizationCalculator = new AmortizationCalculator();
         try{
-            $amortizationCalculator->setRate(.9999999999999999);
+            $amortizationCalculator->setAnnualRate(.9999999999999999);
         }
         catch(\Exception $exception)
         {
             self::assertNull($exception->getMessage()); //Unless we hit an error this code won't actually run.
         }
-        self::assertEquals(.9999999999999999, $amortizationCalculator->getRate());
+        self::assertEquals(.9999999999999999, $amortizationCalculator->getAnnualRate());
     }
 
 
@@ -215,10 +215,10 @@ final class FinancialMathAmortizationMathTest extends TestCase
         $amortizationCalculator = new AmortizationCalculator();
         $monthlyRate = null;
         try{
-            $amortizationCalculator->setRate(.05);
+            $amortizationCalculator->setAnnualRate(.05);
         }catch (\Exception $exception)
         {
-            self::assertTrue(false);//Assertion won't run. If it does we need to fix something with setRate.
+            self::assertTrue(false);//Assertion won't run. If it does we need to fix something with setAnnualRate.
         }
 
         try {
@@ -235,10 +235,10 @@ final class FinancialMathAmortizationMathTest extends TestCase
         $amortizationCalculator = new AmortizationCalculator();
         $monthlyRate = null;
         try{
-            $amortizationCalculator->setRate(.12);
+            $amortizationCalculator->setAnnualRate(.12);
         }catch (\Exception $exception)
         {
-            self::assertTrue(false); //Assertion won't run. If it does we need to fix something with setRate.
+            self::assertTrue(false); //Assertion won't run. If it does we need to fix something with setAnnualRate.
         }
 
         try {
@@ -266,7 +266,7 @@ final class FinancialMathAmortizationMathTest extends TestCase
             self::assertTrue(false);
         }
         self::assertEquals(500001, $amortizationCalculator->getPrincipal());
-        self::assertEquals(.004, $amortizationCalculator->getRate());
+        self::assertEquals(.004, $amortizationCalculator->getAnnualRate());
         self::assertEquals(180, $amortizationCalculator->getMonths());
         unset($amortizationCalculator);
 

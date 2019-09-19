@@ -11,7 +11,7 @@ abstract class Amortization extends MathBase
 {
 
     private $principal;
-    private $rate; // Annual rate
+    private $annualRate;
     private $months;
 
     private $roundToTheBanksFavor;
@@ -46,7 +46,7 @@ abstract class Amortization extends MathBase
      */
     final public function verifyRequiredData()
     {
-        if(isset($this->months) && isset($this->principal) && isset($this->rate))
+        if(isset($this->months) && isset($this->principal) && isset($this->annualRate))
         {
             return true;
         }
@@ -139,7 +139,7 @@ abstract class Amortization extends MathBase
         }
 
         try {
-            $this->setRate($rate);
+            $this->setAnnualRate($rate);
         }catch (\Exception $exception)
         {
             throw $exception;
@@ -160,10 +160,10 @@ abstract class Amortization extends MathBase
      */
     public function getMonthlyRate()
     {
-        if(isset($this->rate))
+        if(isset($this->annualRate))
         {
             try {
-                return $this->monthlyRate($this->rate);
+                return $this->monthlyRate($this->annualRate);
             }catch (\Exception $e)
             {
                 return $e;
@@ -203,9 +203,9 @@ abstract class Amortization extends MathBase
     /**
      * @return mixed
      */
-    public function getRate()
+    public function getAnnualRate()
     {
-        return $this->rate;
+        return $this->annualRate;
     }
 
 
@@ -214,10 +214,10 @@ abstract class Amortization extends MathBase
      * @return bool
      * @throws \Exception
      */
-    public function setRate($rate)
+    public function setAnnualRate($rate)
     {
         if($rate > 0 && $rate < 1) {
-            $this->rate = $rate;
+            $this->annualRate = $rate;
             return true;
         }
         throw new \Exception('Rate must be > 0 and < 1.');
