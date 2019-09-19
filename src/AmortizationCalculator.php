@@ -6,28 +6,21 @@ class AmortizationCalculator extends Amortization
 {
     function __construct() {}
 
-
-
+    /**
+     * @return bool|float
+     * @throws \Exception
+     */
     public function simpleAmortizedPayment()
     {
         return round($this->amortizedPayment(), 2);
     }
 
-
-
-/*
-
-    public function amortizedPaymentAmount()
+    /**
+     * @return array|bool|string
+     * @throws \Exception
+     */
+    public function getTable()
     {
-        return $this->amortizedPayment();
-    }
-
-
-*/
-
-
-    public function getTable(){
         return $this->amortizationTable();
     }
-
 }

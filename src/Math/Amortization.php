@@ -1,6 +1,12 @@
 <?php
 namespace FinancialMath\Math;
 
+/**
+ * Provides all the logic needed to run accurate amortization calculations
+ *
+ * Class Amortization
+ * @package FinancialMath\Math
+ */
 abstract class Amortization extends MathBase
 {
 
@@ -35,8 +41,10 @@ abstract class Amortization extends MathBase
         return $g * $this->principal;
     }
 
-
-    private function verifyRequiredData()
+    /**
+     * @return bool
+     */
+    final public function verifyRequiredData()
     {
         if(isset($this->months) && isset($this->principal) && isset($this->rate))
         {
@@ -121,7 +129,7 @@ abstract class Amortization extends MathBase
      * @param $months
      * @throws \Exception
      */
-    public function setLoanTerms($principal, $rate, $months)
+    final public function setLoanTerms($principal, $rate, $months)
     {
         try {
             $this->setPrincipal($principal);
@@ -147,14 +155,19 @@ abstract class Amortization extends MathBase
 
 
     /**
-     * @return float|int
+     * @return \Exception|float|int
      * @throws \Exception
      */
     public function getMonthlyRate()
     {
         if(isset($this->rate))
         {
-            return $this->rate/12;
+            try {
+                return $this->monthlyRate($this->rate);
+            }catch (\Exception $e)
+            {
+                return $e;
+            }
         }
 
         throw new \Exception('Rate is not set.');

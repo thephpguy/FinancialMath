@@ -1,16 +1,22 @@
 <?php
-// This class is meant to contain common logic and math functions that will be used amoung
-
 namespace FinancialMath\Math;
 
+
+/**
+ * This class is meant to contain common logic and math functions not specifically provided by php.
+ *
+ * Class MathBase
+ * @package FinancialMath\Math
+ */
 abstract class MathBase
 {
+
     /**
      * @param $number
      * @param int $precision
      * @return float|int
      */
-    public function roundUp($number, $precision = 2)
+    final public function roundUp($number, $precision = 2)
     {
         $precision++;
         $fig = (int) str_pad('1', $precision, '0');
@@ -37,7 +43,7 @@ abstract class MathBase
      * @param int $precision
      * @return float|int
      */
-    public function roundDown($number, $precision = 2)
+    final public function roundDown($number, $precision = 2)
     {
         $precision++;
         $fig = (int) str_pad('1', $precision, '0');
@@ -57,5 +63,19 @@ abstract class MathBase
             }
             return (floor(round($number * $fig, $precision+2)) / $fig);
         }
+    }
+
+    /**
+     * @param $rate
+     * @return float|int
+     * @throws \Exception
+     */
+    final public function monthlyRate($rate)
+    {
+        if(isset($rate) && $rate > 0 && $rate < 1)
+        {
+            return $rate/12;
+        }
+        throw new \Exception('Rate is not set.');
     }
 }
