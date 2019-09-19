@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use AmortizationCalculator\AmortizationCalculator;
+use FinancialMath\AmortizationCalculator;
 
 
 final class FinancialMathAmortizationMathTest extends TestCase

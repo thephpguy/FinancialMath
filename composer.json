@@ -1,9 +1,9 @@
 {
-    "name": "thephpguy/amortization",
-    "description": "A simple amortization calculartor",
+    "name": "thephpguy/financial-math",
+    "description": "Solutions to common financial math problems.",
     "type": "library",
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "@stable"
@@ -17,9 +17,8 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
-        "psr-0": {
-            "AmortizationCalculator": "src/",
-            "AmortizationCalculator\\FinancialMath\\": "src/FinancialMath"
+        "psr-4": {
+            "FinancialMath\\": "src/"
         }
     }
 }

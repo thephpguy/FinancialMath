@@ -1,10 +1,8 @@
 <?php
-namespace AmortizationCalculator\FinancialMath;
+namespace FinancialMath\Math;
 
-abstract class Amortization
+abstract class Amortization extends MathBase
 {
-
-
 
     private $principal;
     private $rate; // Annual rate
@@ -92,7 +90,7 @@ abstract class Amortization
             if($paymentNumber == $this->getMonths())
             {
                 $adjustment = round($balance - $principlePaidThisMonth, 2); //If you wonder why this is rounded then see the float warning here: https://www.php.net/manual/en/language.types.float.php
-                $principlePaidThisMonth = $balance; // === $principlePaidThisMonth = $principlePaidThisMonth + $adjustment; // 13+(-1), or 13 + 1
+                $principlePaidThisMonth = $balance; // === $principlePaidThisMonth == $principlePaidThisMonth + $adjustment; // 13+(-1), or 13 + 1
             }
 
             $amortizationTable[] = array(
@@ -154,7 +152,6 @@ abstract class Amortization
      */
     public function getMonthlyRate()
     {
-
         if(isset($this->rate))
         {
             return $this->rate/12;
@@ -255,52 +252,6 @@ abstract class Amortization
             $this->roundToTheBanksFavor = true;
         }else{
             $this->roundToTheBanksFavor = false;
-        }
-    }
-
-
-
-    public function roundUp($number, $precision = 2)
-    {
-        $precision++;
-        $fig = (int) str_pad('1', $precision, '0');
-        if($number >= 1 || $number <= -1)
-        {
-            if($number < 0) // Rounding for negative numbers
-            {
-                return (ceil($number * $fig *-1) / $fig) * -1;
-            }
-            return (ceil($number * $fig) / $fig);
-
-        } else {
-
-            if($number < 0) // Rounding for negative numbers
-            {
-                return (ceil(round($number * $fig * -1, $precision+2)) / $fig) * -1;
-            }
-            return (ceil(round($number * $fig, $precision+2)) / $fig);
-        }
-    }
-
-    public function roundDown($number, $precision = 2)
-    {
-        $precision++;
-        $fig = (int) str_pad('1', $precision, '0');
-        if($number >= 1 || $number <= -1)
-        {
-            if($number < 0) // Rounding for negative numbers
-            {
-                return (floor($number * $fig *-1) / $fig) * -1;
-            }
-            return (floor($number * $fig) / $fig);
-
-        } else {
-
-            if($number < 0) // Rounding for negative numbers
-            {
-                return (floor(round($number * $fig * -1, $precision+2)) / $fig) * -1;
-            }
-            return (floor(round($number * $fig, $precision+2)) / $fig);
         }
     }
 
