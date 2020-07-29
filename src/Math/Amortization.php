@@ -160,14 +160,9 @@ abstract class Amortization extends MathBase
      */
     public function getMonthlyRate()
     {
-        if(isset($this->annualRate))
+        if(isset($this->annualRate) && $this->annualRate > 0 && $this->annualRate < 1)
         {
-            try {
-                return $this->monthlyRate($this->annualRate);
-            }catch (\Exception $e)
-            {
-                return $e;
-            }
+            return $this->annualRate/12;
         }
 
         throw new \Exception('Rate is not set.');

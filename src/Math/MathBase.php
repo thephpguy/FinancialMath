@@ -65,17 +65,4 @@ abstract class MathBase
         }
     }
 
-    /**
-     * @param $rate
-     * @return float|int
-     * @throws \Exception
-     */
-    final public function monthlyRate($rate)
-    {
-        if(isset($rate) && $rate > 0 && $rate < 1)
-        {
-            return $rate/12;
-        }
-        throw new \Exception('Rate is not set.');
-    }
 }
