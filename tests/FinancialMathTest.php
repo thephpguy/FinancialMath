@@ -427,9 +427,7 @@ final class FinancialMathAmortizationMathTest extends TestCase
     }
 
     /*
-     * TODO: Consider modifying the entire system to NOT use floating point numbers.
-     * Useless test. I put this here for demonstration purposes only.
-     *
+     * Test for demonstrating rounding errors made when using binary floating point numbers.
      */
     public function testRoundingError()
     {
@@ -440,5 +438,14 @@ final class FinancialMathAmortizationMathTest extends TestCase
 
         self::assertEquals(2.1500000000001, $z);
         self::assertEquals(2.15, $z);
+
+        //2.0500000000000007 != 2.05
+        $x = 6.07;
+        $y = 4.02;
+        $z = $x-$y;
+
+        self::assertEquals(2.0500000000000007, $z);
+        self::assertEquals(2.05, $z);
+
     }
 }
