@@ -65,4 +65,14 @@ abstract class MathBase
         }
     }
 
+
+    final public function sanitizeInteger($integer)
+    {
+        return filter_var ( $integer, FILTER_SANITIZE_NUMBER_INT);
+    }
+
+    final public function sanitizeFloat($integer)
+    {
+        return filter_var ( $integer, FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    }
 }
