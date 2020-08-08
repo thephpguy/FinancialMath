@@ -12,6 +12,9 @@ abstract class MathBase
 {
 
     /**
+     * Rounds up. Always. Example 3.333, prescision 2, will be rounded to 3.34.
+     *
+     * PHP round() doesn't provide a way to round up like we need to be able to.
      * @param $number
      * @param int $precision
      * @return float|int
@@ -65,6 +68,15 @@ abstract class MathBase
         }
     }
 
+    final public function decimalToPercent($number)
+    {
+        return $number*100;
+    }
+
+    final public function percentToDecimal($number)
+    {
+        return $number/100;
+    }
 
     final public function sanitizeInteger($integer)
     {
