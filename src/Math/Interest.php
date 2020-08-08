@@ -15,7 +15,8 @@ class Interest extends MathBase
      * @param int $roundPrecision [optional]
      * @return float|int
      */
-    final public function simpleInterest($principle, $rate, $time, $roundPrecision = 2){
+    final public function simpleInterest($principle, $rate, $time, $roundPrecision = 2)
+    {
 
         $principle = $this->sanitizeFloat($principle);
         $rate = $this->sanitizeFloat($rate);
@@ -39,8 +40,8 @@ class Interest extends MathBase
      * @param int $roundPrecision
      * @return mixed
      */
-    final public function compoundInterest($principle, $rate, $time, $frequency, $roundPrecision = 2){
-
+    final public function compoundInterest($principle, $rate, $time, $frequency, $roundPrecision = 2)
+    {
         $principle = $this->sanitizeFloat($principle);
         $rate = $this->sanitizeFloat($rate);
         $time = $this->sanitizeInteger($time);
@@ -54,10 +55,28 @@ class Interest extends MathBase
         return round($result, $roundPrecision);
     }
 
+    /**
+     * Compound Annual Growth Rate
+     *
+     *
+     * @param $initialValue
+     * @param $finalValue
+     * @param $time
+     * @param int $roundPrecision
+     * @return float
+     */
+    final public function cagr($initialValue, $finalValue, $time, $roundPrecision = 4)
+    {
+        $a = $finalValue/$initialValue;
+        $exp = 1/$time;
+
+        $result = pow($a, $exp) -1;
+        return round($result, $roundPrecision);
+    }
+
 
     //TODO: Present Value of an Ordinary Annuity
     //TODO: Future Value of an Ordinary Annuity
-    //TODO: Compound Annual Growth Rate
     //TODO: Leverage Ratio
 
 
