@@ -61,7 +61,8 @@ final class InterestTest extends TestCase
     }
 
 
-    public function testCompoundInterest(){
+    public function testCompoundInterest()
+    {
 
         $interestClass = new Interest();
 
@@ -72,6 +73,20 @@ final class InterestTest extends TestCase
         //// Simple calculation rounded to 5 places.
         $answer = $interestClass->compoundInterest('100', .03, 5, 12, 5);
         self::assertEquals(116.16168, $answer);
+    }
+
+    public function testCagr()
+    {
+
+        $interestClass = new Interest();
+
+        // Simple calculation
+        $answer = $interestClass->cagr(100, 200, 1, 2);
+        self::assertEquals(1, $answer);
+
+
+        $answer = $interestClass->cagr(100, 200, 10, 8);
+        self::assertEquals(0.07177346, $answer);
     }
 
 }
