@@ -3,7 +3,8 @@ namespace FinancialMath\Math;
 
 
 /**
- * This class is meant to contain common logic and math functions not specifically provided by php.
+ * This class is meant to contain common logic and math functions not specifically
+ * provided by php and helper methods for common problems.
  *
  * Class MathBase
  * @package FinancialMath\Math
