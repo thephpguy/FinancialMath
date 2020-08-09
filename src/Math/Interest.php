@@ -56,6 +56,54 @@ class Interest extends MathBase
     }
 
     /**
+     * If the additional deposits are made at the END of the period. ie the end of the year.
+     * PMT × {[(1 + r/n)^(nt) - 1] / (r/n)}
+     */
+    final public function futureValueOfASeriesEndOfPeriod($payment, $rate, $time, $frequency, $roundPrecision = 2)
+    {
+        $a = $rate / $frequency;
+        $b = $frequency*$time;
+        $c = pow(1 + $a, $b);
+
+        $result = $payment * ($c - 1) / $a;
+
+        return round($result, $roundPrecision);
+    }
+
+    /**
+     * If the additional deposits are made at the BEGINNING of the period. ie the end of the year.
+     *
+     * @param $payment
+     * @param $rate
+     * @param $time
+     * @param $frequency
+     * @param int $roundPrecision
+     * @return float
+     */
+    final public function futureValueOfASeriesBeginningOfPeriod($payment, $rate, $time, $frequency, $roundPrecision = 2)
+    {
+
+        $a = $this->futureValueOfASeriesEndOfPeriod($payment, $rate, $time, $frequency, $roundPrecision);
+        $b = (1+$rate/$frequency);
+
+        $result = $a * $b;
+
+        return round($result, $roundPrecision);
+    }
+
+    final public function compoundInterestWithContributionsBeginningOfPeriod($principle, $rate, $time, $frequency, $payment, $roundPrecision = 2)
+    {
+
+        $compoundInterest = $this->compoundInterest($principle, $rate, $time, $frequency, $roundPrecision+2);
+        $futureValueOfASeriesBeginningOfPeriod = $this->futureValueOfASeriesBeginningOfPeriod($payment, $rate, $time, $frequency, $roundPrecision+2);
+
+        $result = $compoundInterest + $futureValueOfASeriesBeginningOfPeriod;
+
+        return round($result, $roundPrecision);
+    }
+
+
+    /**
      * Compound Annual Growth Rate
      *
      *

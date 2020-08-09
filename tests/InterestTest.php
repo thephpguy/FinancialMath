@@ -89,4 +89,52 @@ final class InterestTest extends TestCase
         self::assertEquals(0.07177346, $answer);
     }
 
+
+    public function testFutureValueOfASeriesEndOfPeriod()
+    {
+
+        $interestClass = new Interest();
+
+        // Simple calculation
+        $answer = $interestClass->futureValueOfASeriesEndOfPeriod(10, .10, 10, 12);
+        self::assertEquals(2048.45, $answer);
+
+        $answer = $interestClass->futureValueOfASeriesEndOfPeriod(999, .10, 10, 1);
+        self::assertEquals(15921.49, $answer);
+
+        //TODO: add more comprehensive testing.
+
+    }
+
+    public function testFutureValueOfASeriesBeginningOfPeriod()
+    {
+
+        $interestClass = new Interest();
+
+        // Simple calculation
+        $answer = $interestClass->futureValueOfASeriesBeginningOfPeriod(10, .10, 10, 12);
+        self::assertEquals(2065.52, $answer);
+
+        // $999 @ 10% for 10 years adding $999 at the beginning og the year
+        $answer = $interestClass->futureValueOfASeriesBeginningOfPeriod(999, .10, 10, 1);
+        self::assertEquals(17513.64, $answer);
+
+        $answer = $interestClass->futureValueOfASeriesBeginningOfPeriod(999, .10, 10, 12);
+        self::assertEquals(206345.46, $answer);
+
+        //TODO: add more comprehensive testing.
+
+    }
+
+
+
+    public function testCompoundInterestWithContributionsBeginningOfPeriod()
+    {
+        $interestClass = new Interest();
+
+        $result = $interestClass->compoundInterestWithContributionsBeginningOfPeriod(100000, .03375, 15,12, 1077.32, 2);
+        self::assertEquals(418495.57, $result);
+
+        //TODO: add more comprehensive testing.
+    }
 }
