@@ -57,12 +57,18 @@ public sealed record AmortizationScheduleItem : IAmortizationScheduleItem
         decimal interest,
         decimal principal,
         decimal balance
-    ) => new(paymentNumber, interest, principal, balance);
+    )
+    {
+        return new(paymentNumber, interest, principal, balance);
+    }
 
     public IAmortizationScheduleItem CreateAmortizationScheduleItem(
         int paymentNumber,
         decimal interest,
         decimal principal,
         decimal balance
-    ) => Create(paymentNumber, interest, principal, balance);
+    )
+    {
+        return Create(paymentNumber, interest, principal, balance);
+    }
 }

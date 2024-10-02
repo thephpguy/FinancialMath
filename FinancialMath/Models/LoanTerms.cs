@@ -65,7 +65,10 @@ public sealed record LoanTerms : ILoanTerms
         MidpointRounding paymentRoundingMethod = MidpointRounding.ToPositiveInfinity,
         MidpointRounding amortizationRoundingMethod = MidpointRounding.AwayFromZero,
         int roundingPrecision = 2
-    ) => new(loanAmount, interestRate, loanTermMonths, paymentRoundingMethod, amortizationRoundingMethod, roundingPrecision);
+    )
+    {
+        return new(loanAmount, interestRate, loanTermMonths, paymentRoundingMethod, amortizationRoundingMethod, roundingPrecision);
+    }
 
     private LoanTerms(
         decimal loanAmount,

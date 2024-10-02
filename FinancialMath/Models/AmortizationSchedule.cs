@@ -39,12 +39,17 @@ public sealed record AmortizationSchedule : IAmortizationSchedule
         decimal totalInterestPaid,
         decimal totalPrincipalPaid
     )
-    => new(paymentSchedule, paymentAmount, finalPaymentAmount, totalInterestPaid, totalPrincipalPaid);
+    {
+        return new(paymentSchedule, paymentAmount, finalPaymentAmount, totalInterestPaid, totalPrincipalPaid);
+    }
 
     public IAmortizationSchedule CreateAmortizationSchedule(
         IEnumerable<IAmortizationScheduleItem> paymentSchedule,
         decimal paymentAmount,
         decimal finalPaymentAmount,
         decimal totalInterestPaid,
-        decimal totalPrincipalPaid) => Create(paymentSchedule, paymentAmount, finalPaymentAmount, totalInterestPaid, totalPrincipalPaid);
+        decimal totalPrincipalPaid)
+    {
+        return Create(paymentSchedule, paymentAmount, finalPaymentAmount, totalInterestPaid, totalPrincipalPaid);
+    }
 }
