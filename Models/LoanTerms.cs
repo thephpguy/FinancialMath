@@ -1,6 +1,6 @@
 ﻿namespace FinancialMath.Amortization.Models;
 
-using FinancialMath.Amortization.Interfaces;
+using FinancialMath.Interfaces;
 
 /// <summary>
 /// Represents the terms of a loan, including principal, interest rate, term, and rounding options.

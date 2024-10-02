@@ -1,5 +1,6 @@
 namespace FinancialMath.Amortization.Tests;
 using FinancialMath.Amortization.Models;
+using FinancialMath.Core.Amortization;
 using Xunit;
 
 public class GetAmortizedPaymentTests
@@ -16,7 +17,8 @@ public class GetAmortizedPaymentTests
         );
 
         // Act
-        decimal result = AmortizationPaymentCalculator.GetAmortizedPayment(loanTerms);
+        AmortizationPaymentCalculator paymentCalculator = new();
+        decimal result = paymentCalculator.GetAmortizedPayment(loanTerms);
 
         // Assert
         Assert.Equal(536.83m, result);  // Expected monthly payment
@@ -35,7 +37,8 @@ public class GetAmortizedPaymentTests
         );
 
         // Act
-        decimal result = AmortizationPaymentCalculator.GetAmortizedPayment(loanTerms);
+        AmortizationPaymentCalculator paymentCalculator = new();
+        decimal result = paymentCalculator.GetAmortizedPayment(loanTerms);
 
         // Assert
         Assert.Equal(1077.32m, result);  // Expected monthly payment
@@ -54,7 +57,8 @@ public class GetAmortizedPaymentTests
         );
 
         // Act
-        decimal result = AmortizationPaymentCalculator.GetAmortizedPayment(loanTerms);
+        AmortizationPaymentCalculator paymentCalculator = new();
+        decimal result = paymentCalculator.GetAmortizedPayment(loanTerms);
 
         // Assert
         Assert.Equal(733.00m, result);  // Expected monthly payment
@@ -128,13 +132,14 @@ public class GetAmortizedPaymentTests
         LoanTerms? loanTerms = null;
 
         decimal result;
+        AmortizationPaymentCalculator paymentCalculator = new();
 
         // Act
         try
         {
 #pragma warning disable CS8604 // Possible null reference argument.
             //Intentionally passing null to test the exception
-            result = AmortizationPaymentCalculator.GetAmortizedPayment(loanTerms);
+            result = paymentCalculator.GetAmortizedPayment(loanTerms);
 #pragma warning restore CS8604 // Possible null reference argument.
         }
         catch (ArgumentException ex)

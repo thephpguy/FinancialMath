@@ -1,4 +1,4 @@
-﻿namespace FinancialMath.Amortization.Interfaces;
+﻿namespace FinancialMath.Interfaces;
 
 public interface ILoanTerms
 {

@@ -1,12 +1,11 @@
-﻿namespace FinancialMath.Amortization;
+﻿namespace FinancialMath.Core.Amortization;
 
-using FinancialMath.Amortization.Interfaces;
-
+using FinancialMath.Interfaces;
 
 /// <summary>
 /// Provides methods to calculate amortized payments for loans.
 /// </summary>
-public class AmortizationPaymentCalculator
+public class AmortizationPaymentCalculator : IAmortizationPaymentCalculator
 {
     /// <summary>
     /// Calculates the monthly amortized payment based on the provided loan terms.
@@ -14,7 +13,7 @@ public class AmortizationPaymentCalculator
     /// <param name="loanTerms">The terms of the loan, including principal, interest rate, and term.</param>
     /// <returns>The calculated monthly payment.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="loanTerms"/> is null.</exception>
-    public static decimal GetAmortizedPayment(ILoanTerms loanTerms)
+    public decimal GetAmortizedPayment(ILoanTerms loanTerms)
     {
         if (loanTerms == null)
         {
@@ -28,5 +27,4 @@ public class AmortizationPaymentCalculator
 
         return decimal.Round(monthlyPayment, loanTerms.RoundingPrecision, loanTerms.PaymentRoundingMethod);
     }
-
 }
