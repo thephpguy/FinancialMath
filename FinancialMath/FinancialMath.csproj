@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <OutputType>Library</OutputType>
+    <Title>Amortization Calculator</Title>
+    <Description>Amortization Calculator - More coming soon</Description>
+    <PackageProjectUrl>https://github.com/thephpguy/FinancialMath</PackageProjectUrl>
+  </PropertyGroup>
+
+</Project>
