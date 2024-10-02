@@ -12,6 +12,8 @@ public class AmortizationScheduleCalculator(
     private readonly IAmortizationScheduleItemCalculator _amortizationScheduleItemCalculator = amortizationScheduleItemCalculator;
     private readonly IAmortizationPaymentCalculator _amortizationPaymentCalculator = amortizationPaymentCalculator;
 
+    private const decimal ZeroBalance = 0;
+
     public IAmortizationSchedule GetAmortizationSchedule(ILoanTerms loanTerms)
     {
 
@@ -35,7 +37,7 @@ public class AmortizationScheduleCalculator(
                 paymentNumber
             );
 
-            if (amortizationScheduleItem.Balance == 0)
+            if (amortizationScheduleItem.Balance == ZeroBalance)
             {
                 finalPaymentAmount = decimal.Round(remainingBalance + amortizationScheduleItem.Interest, loanTerms.RoundingPrecision, loanTerms.AmortizationRoundingMethod);
             }
