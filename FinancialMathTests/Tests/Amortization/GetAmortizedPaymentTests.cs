@@ -11,7 +11,7 @@ public class GetAmortizedPaymentTests
         // Arrange
         LoanTerms loanTerms = LoanTerms.Create(
             loanAmount: 100000m,
-            interestRate: 5.0m,     // 5% annual interest rate
+            interestRate: .05m,     // 5% annual interest rate
             loanTermMonths: 360,    // 30 years (360 months)
             roundingPrecision: 2
         );
@@ -30,7 +30,7 @@ public class GetAmortizedPaymentTests
         // Arrange
         LoanTerms loanTerms = LoanTerms.Create(
             loanAmount: 152000m,
-            interestRate: 3.375m,           // 3.375% annual interest rate
+            interestRate: .03375m,           // 3.375% annual interest rate
             loanTermMonths: 180,            // 15 years (180 months)
             roundingPrecision: 2,
             paymentRoundingMethod: MidpointRounding.ToPositiveInfinity
@@ -51,7 +51,7 @@ public class GetAmortizedPaymentTests
         // Arrange
         LoanTerms loanTerms = LoanTerms.Create(
             loanAmount: 77777.77m,
-            interestRate: 7.77m,
+            interestRate: .0777m,
             loanTermMonths: 180,
             roundingPrecision: 2
         );
@@ -93,7 +93,7 @@ public class GetAmortizedPaymentTests
         {
             LoanTerms loanTerms = LoanTerms.Create(
                 loanAmount: 100000m,
-                interestRate: 5m,
+                interestRate: .05m,
                 loanTermMonths: 0,
                 roundingPrecision: 2
             );
@@ -113,7 +113,7 @@ public class GetAmortizedPaymentTests
         {
             LoanTerms loanTerms = LoanTerms.Create(
                 loanAmount: 0m,
-                interestRate: 5m,
+                interestRate: .05m,
                 loanTermMonths: 180,
                 roundingPrecision: 2
             );

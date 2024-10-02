@@ -15,7 +15,7 @@ Highly customizable and extendable this library allows you to inject your own im
 // Amortization Schedule Example
 LoanTerms loanTerms = LoanTerms.Create(
     loanAmount: 152000m,     // Starting Principal of $152,000
-    interestRate: 3.375m,    // 3.375% annual interest rate
+    interestRate: .03375m,    // 3.375% annual interest rate
     loanTermMonths: 180,     // 15 years (180 months)
     roundingPrecision: 2,    // Round to the nearest cent
     paymentRoundingMethod: MidpointRounding.ToPositiveInfinity
@@ -32,3 +32,8 @@ AmortizationScheduleCalculator amortizationScheduleCalculator = new(amortization
 
 AmortizationSchedule result = (AmortizationSchedule)amortizationScheduleCalculator.GetAmortizationSchedule(loanTerms);
 ```
+
+## Notes:
+
+Interest rates will always be in decimal form.
+ - For example, 3.375% would be represented as .03375.

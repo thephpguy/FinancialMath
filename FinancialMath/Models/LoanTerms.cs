@@ -1,5 +1,6 @@
 ﻿namespace FinancialMath.Amortization.Models;
 
+using FinancialMath.Core.Formulas;
 using FinancialMath.Interfaces;
 
 /// <summary>
@@ -13,7 +14,7 @@ public sealed record LoanTerms : ILoanTerms
     public decimal LoanAmount { get; init; }
 
     /// <summary>
-    /// Gets the annual interest rate (in percentage). For example, 5.0 for 5%.
+    /// Gets the annual interest rate. For example, .05 for 5%.
     /// </summary>
     public decimal InterestRate { get; init; }
 
@@ -41,7 +42,7 @@ public sealed record LoanTerms : ILoanTerms
     /// <summary>
     /// Gets the monthly interest rate based on the annual interest rate.
     /// </summary>
-    public decimal MonthlyInterestRate => InterestRate / 12 / 100;
+    public decimal MonthlyInterestRate => Interest.MonthlyInterestRate(InterestRate);
 
     /// <summary>
     /// Creates a new instance of the <see cref="LoanTerms"/> class.

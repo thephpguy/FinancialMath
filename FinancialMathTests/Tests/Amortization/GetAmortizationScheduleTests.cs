@@ -1,4 +1,4 @@
-namespace FinancialMath.Amortization.Tests;
+namespace FinancialMathTests.Amortization.Tests;
 
 using FinancialMath.Amortization.Models;
 using FinancialMath.Core.Amortization;
@@ -13,7 +13,7 @@ public class GetAmortizationScheduleTests
         // Arrange
         LoanTerms loanTerms = LoanTerms.Create(
             loanAmount: 100000m,
-            interestRate: 5.0m,     // 5% annual interest rate
+            interestRate: .05m,     // 5% annual interest rate
             loanTermMonths: 360,    // 30 years (360 months)
             roundingPrecision: 2
         );
@@ -51,7 +51,7 @@ public class GetAmortizationScheduleTests
         // Arrange
         LoanTerms loanTerms = LoanTerms.Create(
             loanAmount: 100000m,
-            interestRate: 5.0m,         // 5% annual interest rate
+            interestRate: .05m,         // 5% annual interest rate
             loanTermMonths: 360,        // 30 years (360 months)
             roundingPrecision: 2,
             paymentRoundingMethod: MidpointRounding.ToPositiveInfinity
