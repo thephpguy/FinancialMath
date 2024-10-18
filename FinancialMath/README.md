@@ -9,6 +9,25 @@ Highly customizable and extendable this library allows you to inject your own im
   - Payment
 
 ## Usage
+
+#### Quick and easy method to calculate an amortization schedule:
+```csharp
+// using FinancialMath;
+
+// Arrange
+LoanTerms loanTerms = LoanTerms.Create(
+    loanAmount: 100000m,    // Starting Principal of $100,000
+    interestRate: .05m,     // 5% annual interest rate
+    loanTermMonths: 360,    // 30 years (360 months)
+    roundingPrecision: 2    // Round results (payments and interest each month) to the nearest cent IE 2 decimal places.
+);
+
+IAmortizationSchedule result = AmortizationScheduleProvider.GetAmortizationSchedule(loanTerms);
+
+```
+
+#### More advanced usage, allowing for custom implementations through dependency injection:
+
 ```csharp
 // using FinancialMath;
 
