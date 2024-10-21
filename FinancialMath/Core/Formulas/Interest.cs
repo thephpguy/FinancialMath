@@ -59,7 +59,7 @@ public static class Interest
 
 
     /// <summary>
-    /// Calculate the monthly interest rate
+    /// Calculate the monthly interest rate.
     /// </summary>
     /// <param name="annualInterestRate">Annual interest rate expressed as a decimal. IE .05 for a 5% rate.</param>
     /// <returns>Monthly interest rate.</returns>
@@ -69,6 +69,13 @@ public static class Interest
     }
 
 
+    /// <summary>
+    /// Calculate the monthly payment for a loan.
+    /// Result is not rounded.
+    /// </summary>
+    /// <param name="loanAmount"></param>
+    /// <param name="annualInterestRate"></param>
+    /// <param name="numberOfPayments"></param>
     public static decimal MonthlyPayment(decimal loanAmount, decimal annualInterestRate, int numberOfPayments)
     {
         decimal monthlyInterestRate = MonthlyInterestRate(annualInterestRate);

@@ -145,4 +145,18 @@ public class InterestTests
         Assert.Equal(.0108333333333333333333333333m, result);
     }
 
+    [Fact]
+    public void MonthlyPayment_Test_ReturnsCorrectValue()
+    {
+        // Arrange
+        decimal loanAmount = 1000;
+        decimal annualInterestRate = 0.05m;
+        int numberOfPayments = 12;
+
+        // Act
+        decimal monthlyPayment = Interest.MonthlyPayment(loanAmount, annualInterestRate, numberOfPayments);
+
+        // Assert
+        Assert.Equal(85.60748178846803824759270068m, monthlyPayment);
+    }
 }
